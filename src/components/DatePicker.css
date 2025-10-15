@@ -1,0 +1,35 @@
+/* Make react-multi-date-picker look like MUI Outlined Select (size=small) */
+.mui-date-picker {
+  width: 100%;
+}
+
+.mui-date-picker .mui-input {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem; /* MUI small */
+  line-height: 1.4375em;
+  padding: 6px 14px; /* small vertical padding for slim height */
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  outline: none;
+  background-color: #fff;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  height: 40px;
+}
+
+.mui-date-picker .mui-input:hover {
+  border-color: rgba(0, 0, 0, 0.87);
+}
+
+.mui-date-picker .mui-input:focus {
+  border-color: #1976d2; /* MUI primary default */
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.16);
+}
+
+/* Disabled state mimic */
+.mui-date-picker .mui-input:disabled {
+  background-color: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.38);
+}

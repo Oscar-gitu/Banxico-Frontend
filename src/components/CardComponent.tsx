@@ -4,16 +4,16 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 
-export default function CardComponent() {
+export default function CardComponent({ title, content }: { title: string, content: string }) {
     return (
         <>
             <Card>
                 <CardHeader
-                    title="Card Header"
+                    title={title}
                 />
                 <CardContent>
                     <Typography>
-                        Card Content
+                        {content}
                     </Typography>
                 </CardContent>
             </Card>

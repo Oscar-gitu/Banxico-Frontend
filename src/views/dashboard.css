@@ -8,9 +8,13 @@
   flex-grow: 1;
 }
 
+.dashboard-container {
+    margin-bottom: 2rem;
+}
+
 .typography {
     font-family: 'Roboto', sans-serif;
     color: black;
-    letter-spacing: .3rem;
+    letter-spacing: .1rem;
     font-weight: 500;
 }

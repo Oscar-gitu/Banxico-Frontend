@@ -1,7 +1,6 @@
 import apiClient from './axiosService';
 
-// Use Vite dev server proxy to avoid CORS in development
-const BASE_URL = '/banxico/SieAPIRest/service/v1/series';
+const BASE_URL = import.meta.env.VITE_ENVIRONMENT === 'development' ? '/banxico/SieAPIRest/service/v1/series' : 'https://www.banxico.org.mx/SieAPIRest/service/v1/series';
 
 function toYmd(date: Date | string): string {
   if (typeof date === 'string') return date;

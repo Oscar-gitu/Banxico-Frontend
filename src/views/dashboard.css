@@ -1,0 +1,16 @@
+.dashboard-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-main {
+  flex-grow: 1;
+}
+
+.typography {
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    letter-spacing: .3rem;
+    font-weight: 500;
+}

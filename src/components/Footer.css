@@ -1,0 +1,14 @@
+/* Styles for Footer component */
+.footer-container {
+  width: 100%;
+  background-color: black;
+  padding: 1rem;
+}
+
+.footer-title {
+  color: white;
+  font-size: 2rem;
+  font-family: monospace;
+  letter-spacing: .3rem;
+  text-align: center;
+}

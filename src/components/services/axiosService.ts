@@ -4,7 +4,7 @@ import type { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
 type QueryParams = Record<string, any> | URLSearchParams | undefined;
 type Headers = Record<string, string | number | boolean | undefined> | undefined;
 
-const BANXICO_TOKEN = import.meta.env.VITE_BANXICO_TOKEN as string | undefined;
+//const BANXICO_TOKEN = import.meta.env.VITE_BANXICO_TOKEN as string | undefined;
 
 const api = axios.create({
   // Optionally set a baseURL via env: VITE_API_BASE_URL
@@ -15,7 +15,7 @@ const api = axios.create({
 function withAuth(headers?: Headers): Headers {
   return {
     ...(headers || {}),
-    ...(BANXICO_TOKEN ? { 'Bmx-Token': BANXICO_TOKEN } : {}),
+    //...(BANXICO_TOKEN ? { 'Bmx-Token': BANXICO_TOKEN } : {}),
   } as Record<string, string>;
 }
 

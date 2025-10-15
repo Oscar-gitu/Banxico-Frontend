@@ -1,6 +1,6 @@
 import apiClient from './axiosService';
 
-const BASE_URL = import.meta.env.VITE_ENVIRONMENT === 'development' ? '/banxico/SieAPIRest/service/v1/series' : 'https://www.banxico.org.mx/SieAPIRest/service/v1/series';
+const BASE_URL = "https://fxkv9k8g6g.execute-api.us-east-1.amazonaws.com/dev/banxico";
 
 function toYmd(date: Date | string): string {
   if (typeof date === 'string') return date;
@@ -18,9 +18,9 @@ export async function getSeriesData<T = any>(
   const ids = Array.isArray(seriesIds) ? seriesIds.join(',') : seriesIds;
   const start = toYmd(startDate);
   const end = toYmd(endDate);
-  const url = `${BASE_URL}/${ids}/datos/${start}/${end}`;
+  const url = `${BASE_URL}`;
   // Bmx-Token header se añade automáticamente en apiClient
-  const res = await apiClient.get<T>(url);
+  const res = await apiClient.get<T>(url, { serieId: ids, start, end });
   return res.data;
 }
 

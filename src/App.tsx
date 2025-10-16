@@ -1,5 +1,5 @@
 import './App.css'
-import Dashboard from './views/Dashboard';
+import { Dashboard } from './views';
 import AppThemeProvider from './theme/AppTheme';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 

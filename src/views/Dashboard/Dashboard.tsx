@@ -1,18 +1,13 @@
 //import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import './dashboard.css'
-import Card from '../components/CardComponent';
+import { CardComponent as Card, SelectComponent, DatePickerComponent, SimpleLineChart, TableComponent, Footer } from '../../components';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import SelectComponent from '../components/SelectComponent';
 import { useState, useEffect } from 'react';
-import DatePickerComponent from '../components/DatePickerComponent';
-import { getSeriesData } from '../components/services/banxicoApi';
-import { getMinMaxFromDatos } from '../utils/seriesStats';
-import SimpleLineChart from "../components/SimpleLineChart";
-import TableComponent from '../components/TableComponent';
-import type { BanxicoResponse } from '../types/banxico';
+import { getSeriesData } from '../../services/banxicoApi';
+import { getMinMaxFromDatos } from '../../utils/seriesStats';
+import type { BanxicoResponse } from '../../types/banxico';
 import { DateObject } from 'react-multi-date-picker';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';

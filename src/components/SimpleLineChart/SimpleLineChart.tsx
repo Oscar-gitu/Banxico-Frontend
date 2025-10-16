@@ -1,4 +1,3 @@
-
 import { Typography, Box } from "@mui/material";
 import {
     LineChart,
@@ -9,8 +8,8 @@ import {
     Tooltip,
     ResponsiveContainer,
 } from "recharts";
-import type { BanxicoDato } from '../types/banxico';
-import CardSkeleton from './skeletons/CardSkeleton';
+import type { BanxicoDato } from '../../types/banxico';
+import CardSkeleton from '../skeletons/CardSkeleton';
 
 export default function LineChartBanxico({ values }: { values?: BanxicoDato[] }) {
     const list: BanxicoDato[] = Array.isArray(values) ? values : [];

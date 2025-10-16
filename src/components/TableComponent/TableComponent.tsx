@@ -9,10 +9,10 @@ import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import type { BanxicoDato } from '../types/banxico';
-import TableRowsSkeleton from './skeletons/TableRowsSkeleton';
+import type { BanxicoDato } from '../../types/banxico';
+import TableRowsSkeleton from '../skeletons/TableRowsSkeleton';
 import DownloadIcon from '@mui/icons-material/Download';
-import { parseDateDMY, parseNumberLoose, buildCsv } from '../utils/format';
+import { parseDateDMY, parseNumberLoose, buildCsv } from '../../utils/format';
 import './TableComponent.css';
 
 export default function TableComponent({ values }: { values?: BanxicoDato[] }) {

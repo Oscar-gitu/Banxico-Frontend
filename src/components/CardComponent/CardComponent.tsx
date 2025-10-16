@@ -3,7 +3,7 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
-import CardSkeleton from './skeletons/CardSkeleton';
+import CardSkeleton from '../skeletons/CardSkeleton';
 import './CardComponent.css';
 import type React from 'react';
 

@@ -1,11 +1,46 @@
-# React + TypeScript + Vite
+# Banxico Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación React + TypeScript + Vite con Material UI.
 
-Currently, two official plugins are available:
+## Requisitos
+- Node.js 18+ (recomendado) y npm.
+- Clonar este repositorio, el repositorio es publico.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Instalación
+```bash
+npm i
+```
+
+## Ejecutar en desarrollo
+```bash
+npm run dev
+```
+Abrirá el proyecto en Vite (por defecto en http://localhost:5173).
+
+## Compilar para producción
+```bash
+npm run build
+```
+Los artefactos se generan en la carpeta `dist/`.
+
+## Previsualizar build de producción
+```bash
+npm run preview
+```
+
+## Linter
+```bash
+npm run lint
+```
+
+## Estructura relevante
+- `src/components/` contiene carpetas por componente y un `index.ts` para exportarlos.
+- `src/views/` contiene las vistas (por ejemplo `Dashboard/`).
+- `src/services/` contiene clientes/servicios HTTP (`banxicoApi.ts`).
+
+## Variables/Configuración
+La variable de entorno `Bmx-Token` se debe agregar en el archivo `.env`.
+NOTA: Se creo una api en aws para consumir la api de banxico, ya que la api de banxico no permite consumirla desde el frontend cuando se hace el build por temas de cors, por ello se creo una api en aws para consumir la api de banxico y actua como intermediario, dicho endpoint consume la api de banxico, utiliza el token de la api de banxico para autenticar la peticion y retorna los datos en formato json.
 
 ## React Compiler
 

@@ -1,5 +1,5 @@
 import apiClient from './axiosService';
-import type { BanxicoResponse } from '../../types/banxico';
+import type { BanxicoResponse } from '../types/banxico';
 
 const BASE_URL = "https://fxkv9k8g6g.execute-api.us-east-1.amazonaws.com/dev/banxico";
 

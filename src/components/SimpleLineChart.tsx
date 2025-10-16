@@ -9,10 +9,11 @@ import {
     Tooltip,
     ResponsiveContainer,
 } from "recharts";
+import type { BanxicoDato } from '../types/banxico';
 
-export default function LineChartBanxico({ values }: { values?: any[] }) {
-    const list = Array.isArray(values) ? values : [];
-    const data = list.map((item: any) => ({
+export default function LineChartBanxico({ values }: { values?: BanxicoDato[] }) {
+    const list: BanxicoDato[] = Array.isArray(values) ? values : [];
+    const data = list.map((item: BanxicoDato) => ({
         fecha: item.fecha,
         dato: parseFloat(item.dato)
     }));
@@ -21,7 +22,7 @@ export default function LineChartBanxico({ values }: { values?: any[] }) {
         <Card sx={{ width: "100%", height: 400 }}>
             <CardContent sx={{ height: "100%" }}>
                 <Typography variant="h6" gutterBottom>
-                    Valor diario
+                    Valor histórico:
                 </Typography>
                 <Box sx={{ width: "100%", height: "calc(100% - 40px)" }}>
                     <ResponsiveContainer width="100%" height="100%">

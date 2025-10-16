@@ -1,7 +1,8 @@
 import axios from 'axios';
 import type { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
 
-type QueryParams = Record<string, any> | URLSearchParams | undefined;
+type Primitive = string | number | boolean | null | undefined;
+type QueryParams = Record<string, Primitive> | URLSearchParams | undefined;
 type Headers = Record<string, string | number | boolean | undefined> | undefined;
 
 //const BANXICO_TOKEN = import.meta.env.VITE_BANXICO_TOKEN as string | undefined;
@@ -19,7 +20,7 @@ function withAuth(headers?: Headers): Headers {
   } as Record<string, string>;
 }
 
-export interface RequestOptions<TBody = any> {
+export interface RequestOptions<TBody = unknown> {
   method: Method;
   url: string;
   params?: QueryParams;
@@ -28,7 +29,7 @@ export interface RequestOptions<TBody = any> {
   config?: Omit<AxiosRequestConfig, 'method' | 'url' | 'params' | 'data' | 'headers'>;
 }
 
-export async function request<TResponse = any, TBody = any>(opts: RequestOptions<TBody>): Promise<AxiosResponse<TResponse>> {
+export async function request<TResponse = unknown, TBody = unknown>(opts: RequestOptions<TBody>): Promise<AxiosResponse<TResponse>> {
   const { method, url, params, data, headers, config } = opts;
   return api.request<TResponse>({
     method,
@@ -41,19 +42,19 @@ export async function request<TResponse = any, TBody = any>(opts: RequestOptions
 }
 
 export const apiClient = {
-  get: <T = any>(url: string, params?: QueryParams, headers?: Headers, config?: AxiosRequestConfig) =>
+  get: <T = unknown>(url: string, params?: QueryParams, headers?: Headers, config?: AxiosRequestConfig) =>
     request<T>({ method: 'GET', url, params, headers, config }),
 
-  delete: <T = any>(url: string, params?: QueryParams, headers?: Headers, config?: AxiosRequestConfig) =>
+  delete: <T = unknown>(url: string, params?: QueryParams, headers?: Headers, config?: AxiosRequestConfig) =>
     request<T>({ method: 'DELETE', url, params, headers, config }),
 
-  post: <T = any, B = any>(url: string, data?: B, headers?: Headers, config?: AxiosRequestConfig) =>
+  post: <T = unknown, B = unknown>(url: string, data?: B, headers?: Headers, config?: AxiosRequestConfig) =>
     request<T, B>({ method: 'POST', url, data, headers, config }),
 
-  put: <T = any, B = any>(url: string, data?: B, headers?: Headers, config?: AxiosRequestConfig) =>
+  put: <T = unknown, B = unknown>(url: string, data?: B, headers?: Headers, config?: AxiosRequestConfig) =>
     request<T, B>({ method: 'PUT', url, data, headers, config }),
 
-  patch: <T = any, B = any>(url: string, data?: B, headers?: Headers, config?: AxiosRequestConfig) =>
+  patch: <T = unknown, B = unknown>(url: string, data?: B, headers?: Headers, config?: AxiosRequestConfig) =>
     request<T, B>({ method: 'PATCH', url, data, headers, config }),
 };
 

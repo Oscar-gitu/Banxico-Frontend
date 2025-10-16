@@ -1,12 +1,4 @@
-export interface BanxicoDato {
-  fecha: string;
-  dato: string;
-}
-
-export interface MinMax {
-  min: string | null;
-  max: string | null;
-}
+import type { BanxicoDato, MinMax } from '../types/banxico';
 
 export function getMinMaxFromDatos(datos: BanxicoDato[] | undefined | null): MinMax {
   if (!Array.isArray(datos) || datos.length === 0) return { min: null, max: null };

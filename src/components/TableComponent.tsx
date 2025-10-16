@@ -11,10 +11,11 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import type { BanxicoDato } from '../types/banxico';
+import TableRowsSkeleton from './skeletons/TableRowsSkeleton';
 
 export default function TableComponent({ values }: { values?: BanxicoDato[] }) {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(100);
   const [orderBy, setOrderBy] = React.useState<'fecha' | 'dato'>('fecha');
   const [order, setOrder] = React.useState<'asc' | 'desc'>('desc');
 
@@ -71,8 +72,11 @@ export default function TableComponent({ values }: { values?: BanxicoDato[] }) {
         <Button
           variant="outlined"
           size="small"
+          disabled={rows.length === 0}
           onClick={() => {
-            const pageRows = sorted.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+            const pageRows = rowsPerPage > 0
+              ? sorted.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              : sorted;
             const header = ['Fecha', 'Valor'];
             const lines = pageRows.map(r => `${r.fecha},${r.dato}`);
             const csv = [header.join(','), ...lines].join('\n');
@@ -113,19 +117,22 @@ export default function TableComponent({ values }: { values?: BanxicoDato[] }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {sorted
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, idx) => (
-                <TableRow hover role="checkbox" tabIndex={-1} key={`${row.fecha}-${idx}`}>
-                  <TableCell>{row.fecha}</TableCell>
-                  <TableCell>{row.dato}</TableCell>
-                </TableRow>
-              ))}
+            {rows.length === 0
+              ? <TableRowsSkeleton rows={8} />
+              : (rowsPerPage > 0
+                  ? sorted.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  : sorted
+                ).map((row, idx) => (
+                  <TableRow hover role="checkbox" tabIndex={-1} key={`${row.fecha}-${idx}`}>
+                    <TableCell>{row.fecha}</TableCell>
+                    <TableCell>{row.dato}</TableCell>
+                  </TableRow>
+                ))}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[100, 500, { label: 'Todos', value: -1 }]}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}

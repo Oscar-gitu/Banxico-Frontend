@@ -10,6 +10,7 @@ import {
     ResponsiveContainer,
 } from "recharts";
 import type { BanxicoDato } from '../types/banxico';
+import CardSkeleton from './skeletons/CardSkeleton';
 
 export default function LineChartBanxico({ values }: { values?: BanxicoDato[] }) {
     const list: BanxicoDato[] = Array.isArray(values) ? values : [];
@@ -17,6 +18,10 @@ export default function LineChartBanxico({ values }: { values?: BanxicoDato[] })
         fecha: item.fecha,
         dato: parseFloat(item.dato)
     }));
+
+    if (!data.length) {
+        return <CardSkeleton withHeader lines={6} height={24} />;
+    }
 
     return (
         <Card sx={{ width: "100%", height: 400 }}>

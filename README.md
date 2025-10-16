@@ -51,7 +51,7 @@ NOTA: Se creo una api en aws para consumir la api de banxico, ya que la api de b
 <img src="./src/assets/images/app.png" alt="Dashboard" width="1000" />
 
 ### Responsiva
-<img src="./src/assets/images/responsive.png" alt="Vista responsiva" width="1000" />
+<img src="./src/assets/images/app_responsive.png" alt="Vista responsiva" width="1000" />
 
 ## React Compiler
 

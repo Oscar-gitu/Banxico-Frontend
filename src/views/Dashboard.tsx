@@ -14,6 +14,9 @@ import SimpleLineChart from "../components/SimpleLineChart";
 import TableComponent from '../components/TableComponent';
 import type { BanxicoResponse } from '../types/banxico';
 import { DateObject } from 'react-multi-date-picker';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 
 const optionsSelect: Record<string, string> = {
     "Tipo de cambio": "SF43718",
@@ -89,13 +92,37 @@ export default function Dashboard() {
                 </Grid>
                 <Grid container spacing={4} className="dashboard-container">
                     <Grid size={{ xs: 12, sm: 4, md: 4 }}>
-                        <Card title={'Valor actual: ' + selected} content={`${todayData ?? ''}`} titleTooltip={"Valor actual al dia de hoy"} />
+                        <Card
+                            variant="metric"
+                            tone="primary"
+                            icon={<TrendingFlatIcon />}
+                            title={'Valor actual: ' + selected}
+                            content={`${todayData ?? ''}`}
+                            titleTooltip={"Valor actual al dia de hoy"}
+                            helperText={"Al día de hoy"}
+                        />
                     </Grid>
                     <Grid size={{ xs: 12, sm: 4, md: 4 }}>
-                        <Card title="Valor maximo: " content={`${maxVal ?? ''}`} titleTooltip={"Valor maximo en el rango de fechas seleccionado"} />
+                        <Card
+                            variant="metric"
+                            tone="success"
+                            icon={<TrendingUpIcon />}
+                            title="Valor máximo"
+                            content={`${maxVal ?? ''}`}
+                            titleTooltip={"Valor máximo en el rango de fechas seleccionado"}
+                            helperText={"Máximo del rango"}
+                        />
                     </Grid>
                     <Grid size={{ xs: 12, sm: 4, md: 4 }}>
-                        <Card title="Valor minimo: " content={`${minVal ?? ''}`} titleTooltip={"Valor minimo en el rango de fechas seleccionado"} />
+                        <Card
+                            variant="metric"
+                            tone="warning"
+                            icon={<TrendingDownIcon />}
+                            title="Valor mínimo"
+                            content={`${minVal ?? ''}`}
+                            titleTooltip={"Valor mínimo en el rango de fechas seleccionado"}
+                            helperText={"Mínimo del rango"}
+                        />
                     </Grid>
                 </Grid>
                 <Grid container spacing={4} className="dashboard-container">

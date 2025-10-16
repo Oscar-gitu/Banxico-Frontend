@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,7 +11,9 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import type { BanxicoDato } from '../types/banxico';
 import TableRowsSkeleton from './skeletons/TableRowsSkeleton';
+import DownloadIcon from '@mui/icons-material/Download';
 import { parseDateDMY, parseNumberLoose, buildCsv } from '../utils/format';
+import './TableComponent.css';
 
 export default function TableComponent({ values }: { values?: BanxicoDato[] }) {
   const [page, setPage] = React.useState(0);
@@ -60,11 +61,18 @@ export default function TableComponent({ values }: { values?: BanxicoDato[] }) {
   };
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 1 }}>
+    <Box sx={{ width: '100%' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-start', mb: 1 }}>
         <Button
-          variant="outlined"
+          variant="contained"
           size="small"
+          startIcon={<DownloadIcon />}
+          sx={{
+            borderRadius: 2,
+            textTransform: 'none',
+            fontFamily: 'Poppins, Roboto, sans-serif',
+            width: { xs: '100%', sm: 'auto' },
+          }}
           disabled={rows.length === 0}
           onClick={() => {
             const pageRows = rowsPerPage > 0
@@ -83,11 +91,11 @@ export default function TableComponent({ values }: { values?: BanxicoDato[] }) {
           Descargar CSV
         </Button>
       </Box>
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer className="table-scroll" sx={{ maxHeight: 440, border: '1px solid #e5e7eb', borderRadius: 2 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
-            <TableRow>
-              <TableCell style={{ minWidth: 120 }} sortDirection={orderBy === 'fecha' ? order : false}>
+            <TableRow sx={{ backgroundColor: '#f9fafb' }}>
+              <TableCell style={{ minWidth: 120 }} sortDirection={orderBy === 'fecha' ? order : false} sx={{ fontWeight: 600 }}>
                 <TableSortLabel
                   active={orderBy === 'fecha'}
                   direction={orderBy === 'fecha' ? order : 'asc'}
@@ -96,7 +104,7 @@ export default function TableComponent({ values }: { values?: BanxicoDato[] }) {
                   Fecha
                 </TableSortLabel>
               </TableCell>
-              <TableCell style={{ minWidth: 120 }} sortDirection={orderBy === 'dato' ? order : false}>
+              <TableCell style={{ minWidth: 120 }} sortDirection={orderBy === 'dato' ? order : false} sx={{ fontWeight: 600 }}>
                 <TableSortLabel
                   active={orderBy === 'dato'}
                   direction={orderBy === 'dato' ? order : 'asc'}
@@ -130,7 +138,9 @@ export default function TableComponent({ values }: { values?: BanxicoDato[] }) {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        className="table-scroll"
+        sx={{ overflowX: 'auto' }}
       />
-    </Paper>
+    </Box>
   );
 }

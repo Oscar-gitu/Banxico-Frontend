@@ -1,4 +1,3 @@
-/* Make react-multi-date-picker look like MUI Outlined Select (size=small) */
 .mui-date-picker {
   width: 100%;
 }
@@ -6,30 +5,39 @@
 .mui-date-picker .mui-input {
   width: 100%;
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
-  font-size: 0.875rem; /* MUI small */
+  font-family: 'Poppins', 'Roboto', sans-serif;
+  font-size: 0.875rem;
   line-height: 1.4375em;
-  padding: 6px 14px; /* small vertical padding for slim height */
-  border: 1px solid rgba(0, 0, 0, 0.23);
-  border-radius: 4px;
+  padding: 6px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
   outline: none;
-  background-color: #fff;
+  background-color: #f9fafb;
   transition: border-color 150ms ease, box-shadow 150ms ease;
   height: 40px;
+  text-align: center;
+  cursor: pointer;
 }
 
 .mui-date-picker .mui-input:hover {
-  border-color: rgba(0, 0, 0, 0.87);
+  border-color: #cbd5e1;
+  cursor: pointer;
 }
 
 .mui-date-picker .mui-input:focus {
-  border-color: #1976d2; /* MUI primary default */
+  border-color: #1976d2;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.16);
+  cursor: pointer;
 }
 
-/* Disabled state mimic */
 .mui-date-picker .mui-input:disabled {
   background-color: rgba(0, 0, 0, 0.04);
   border-color: rgba(0, 0, 0, 0.12);
   color: rgba(0, 0, 0, 0.38);
+}
+
+.mui-date-picker .mui-input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-family: 'Poppins', 'Roboto', sans-serif;
+  text-align: center;
 }

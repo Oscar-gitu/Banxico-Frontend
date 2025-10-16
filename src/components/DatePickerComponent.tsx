@@ -23,7 +23,8 @@ export default function DatePickerComponent({ value, onChange }: DatePickerCompo
         format="DD/MM/YYYY"
         calendar={gregorian}
         containerClassName="mui-date-picker"
-        inputClass="mui-input"
+        inputClass="mui-input mui-input-with-icon"
+        placeholder="Selecciona el rango de fechas"
       />
     </FormControl>
   );

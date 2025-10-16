@@ -1,0 +1,72 @@
+.card-root {
+  border-radius: 16px; /* theme spacing(2) approx */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.card-title {
+  font-family: 'Poppins', 'Roboto', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02rem;
+  color: #111827; /* gray-900 */
+  font-size: 1.3rem;
+}
+
+.card-value {
+  font-family: 'Poppins', 'Roboto', sans-serif;
+  font-weight: 600;
+  color: var(--mui-palette-primary-main, #1976d2);
+  letter-spacing: 0.01rem;
+  font-size: 1.5rem; /* similar to h5 */
+  line-height: 1.6;
+}
+
+/* Metric variant */
+.card-metric {
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.card-metric--primary { border-left: 4px solid #1976d2; }
+.card-metric--success { border-left: 4px solid #2e7d32; }
+.card-metric--warning { border-left: 4px solid #ed6c02; }
+.card-metric--info { border-left: 4px solid #0288d1; }
+.card-metric--error { border-left: 4px solid #d32f2f; }
+
+.card-metric__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef2ff;
+  color: #3730a3;
+}
+
+.card-metric__content { flex: 1; }
+.card-metric__title {
+  font-family: 'Poppins', 'Roboto', sans-serif;
+  font-size: 0.8rem;
+  color: #6b7280;
+  font-weight: 600;
+  letter-spacing: .02rem;
+  margin: 0 0 4px 0;
+}
+.card-metric__value {
+  font-family: 'Poppins', 'Roboto', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #111827;
+}
+.card-metric__helper {
+  font-family: 'Poppins', 'Roboto', sans-serif;
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 2px;
+}

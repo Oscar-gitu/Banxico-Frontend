@@ -13,8 +13,10 @@
 }
 
 .typography {
-    font-family: 'Roboto', sans-serif;
-    color: black;
-    letter-spacing: .1rem;
-    font-weight: 500;
+    font-family: 'Poppins', 'Roboto', sans-serif;
+    color: #111827; /* gray-900 */
+    letter-spacing: .06rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: .25rem;
 }

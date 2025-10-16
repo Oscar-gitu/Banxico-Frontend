@@ -9,6 +9,9 @@ import SelectComponent from '../components/SelectComponent';
 import { useState, useEffect } from 'react';
 import DatePickerComponent from '../components/DatePickerComponent';
 import { getSeriesData } from '../components/services/banxicoApi';
+import { getMinMaxFromDatos } from '../utils/seriesStats';
+import SimpleLineChart from "../components/SimpleLineChart";
+import TableComponent from '../components/TableComponent';
 
 const optionsSelect: Record<string, string> = {
     "Tipo de cambio": "SF43718",
@@ -21,19 +24,42 @@ export default function Dashboard() {
     const [selected, setSelected] = useState<string>(optionLabels[0]);
     const today = new Date();
     const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
-    const [dateRange, setDateRange] = useState<[Date, Date]>([monthStart, today]);
+    const [dateRange, setDateRange] = useState<[any, any]>([monthStart, today]);
+    const [data, setData] = useState<any>(null);
+    const [todayData, setTodayData] = useState<any>(null);
+    const [minVal, setMinVal] = useState<string | null>(null);
+    const [maxVal, setMaxVal] = useState<string | null>(null);
 
     useEffect(() => {
+        const [start, end] = (dateRange || []) as [any, any];
+        if (!start || !end) return;
         try {
             const fetchData = async () => {
-                const data = await getSeriesData(optionsSelect[selected], dateRange[0], dateRange[1]);
-                console.log(data);
+                const data = await getSeriesData(optionsSelect[selected], start, end);
+                setData(data);
+                const datos = data?.bmx?.series?.[0]?.datos ?? [];
+                const { min, max } = getMinMaxFromDatos(datos);
+                setMinVal(min);
+                setMaxVal(max);
             };
             fetchData();
         } catch (error) {
             console.error(error);
         }
     }, [selected, dateRange]);
+
+    useEffect(() => {
+        const run = async () => {
+            try {
+                const now = new Date();
+                const res = await getSeriesData(optionsSelect[selected], now, now);
+                setTodayData(res.bmx.series[0].datos[0].dato);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        run();
+    }, [selected]);
 
     return (
         <Box className="dashboard-root">
@@ -50,26 +76,38 @@ export default function Dashboard() {
                             onChange={(label) => {
                                 setSelected(label);
                             }}
-                        />
+                        />  
                     </Grid>
                     <Grid size={{ xs: 12, sm: 3, md: 3 }}>
                         <DatePickerComponent
                             value={dateRange}
-                            onChange={(val) => setDateRange(val as [Date, Date])}
+                            onChange={(val) => setDateRange(val as any)}
                         />
                     </Grid>
                 </Grid>
-                <Grid container spacing={4}>
+                <Grid container spacing={4} className="dashboard-container">
                     <Grid size={{ xs: 12, sm: 4, md: 4 }}>
-                        <Card title={'Valor Actual: ' + selected} content="" />
+                        <Card title={'Valor actual: ' + selected} content={todayData } />
                     </Grid>
                     <Grid size={{ xs: 12, sm: 4, md: 4 }}>
-                        <Card title="Valor Anterior: " content="" />
+                        <Card title="Valor maximo: " content={`${maxVal ?? ''}`} />
                     </Grid>
                     <Grid size={{ xs: 12, sm: 4, md: 4 }}>
-                        <Card title="Variación: " content="" />
+                        <Card title="Valor minimo: " content={`${minVal ?? ''}`} />
                     </Grid>
                 </Grid>
+                <Grid container spacing={4} className="dashboard-container">
+                    <Grid size={{ xs: 12, sm: 12, md: 12 }}>
+                        {Array.isArray(data?.bmx?.series?.[0]?.datos) && data.bmx.series[0].datos.length > 0 && (
+                            <SimpleLineChart values={data.bmx.series[0].datos} />
+                        )}
+                    </Grid>
+                </Grid>
+                <Grid container spacing={4}>
+                    <Grid size={{ xs: 12, sm: 12, md: 12 }}>
+                        <TableComponent values={data?.bmx?.series?.[0]?.datos} />
+                    </Grid>
+                </Grid> 
             </Box>
             <Footer />
         </Box>

@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import type { BanxicoDato } from '../types/banxico';
 import TableRowsSkeleton from './skeletons/TableRowsSkeleton';
+import { parseDateDMY, parseNumberLoose, buildCsv } from '../utils/format';
 
 export default function TableComponent({ values }: { values?: BanxicoDato[] }) {
   const [page, setPage] = React.useState(0);
@@ -30,18 +31,10 @@ export default function TableComponent({ values }: { values?: BanxicoDato[] }) {
 
   const rows = Array.isArray(values) ? values : [];
 
-  const parseDate = (ddmmyyyy: string): number => {
-    const [dd, mm, yyyy] = ddmmyyyy.split('/').map((x) => parseInt(x, 10));
-    if (!yyyy || !mm || !dd) return 0;
-    return new Date(yyyy, mm - 1, dd).getTime();
-  };
+  const parseDate = parseDateDMY;
+  const parseNumber = parseNumberLoose;
 
-  const parseNumber = (s: string): number => {
-    const n = Number((s || '').toString().replace(/,/g, ''));
-    return Number.isNaN(n) ? 0 : n;
-  };
-
-  const comparator = (a: BanxicoDato, b: BanxicoDato): number => {
+  const comparator = React.useCallback((a: BanxicoDato, b: BanxicoDato): number => {
     let cmp = 0;
     if (orderBy === 'fecha') {
       cmp = parseDate(a.fecha) - parseDate(b.fecha);
@@ -49,13 +42,13 @@ export default function TableComponent({ values }: { values?: BanxicoDato[] }) {
       cmp = parseNumber(a.dato) - parseNumber(b.dato);
     }
     return order === 'asc' ? cmp : -cmp;
-  };
+  }, [orderBy, order]);
 
   const sorted = React.useMemo(() => {
     const copy = rows.slice();
     copy.sort(comparator);
     return copy;
-  }, [rows, orderBy, order]);
+  }, [rows, comparator]);
 
   const handleRequestSort = (property: 'fecha' | 'dato') => () => {
     if (orderBy === property) {
@@ -77,9 +70,7 @@ export default function TableComponent({ values }: { values?: BanxicoDato[] }) {
             const pageRows = rowsPerPage > 0
               ? sorted.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               : sorted;
-            const header = ['Fecha', 'Valor'];
-            const lines = pageRows.map(r => `${r.fecha},${r.dato}`);
-            const csv = [header.join(','), ...lines].join('\n');
+            const csv = buildCsv(pageRows);
             const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -122,8 +113,8 @@ export default function TableComponent({ values }: { values?: BanxicoDato[] }) {
               : (rowsPerPage > 0
                   ? sorted.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   : sorted
-                ).map((row, idx) => (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={`${row.fecha}-${idx}`}>
+                ).map((row) => (
+                  <TableRow hover role="checkbox" tabIndex={-1} key={`${row.fecha}-${row.dato}`}>
                     <TableCell>{row.fecha}</TableCell>
                     <TableCell>{row.dato}</TableCell>
                   </TableRow>

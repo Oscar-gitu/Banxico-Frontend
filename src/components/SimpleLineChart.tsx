@@ -23,6 +23,11 @@ export default function LineChartBanxico({ values }: { values?: BanxicoDato[] })
         return <CardSkeleton withHeader lines={6} height={24} />;
     }
 
+    const numberFormatter = new Intl.NumberFormat('es-MX', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 4,
+    });
+
     return (
         <Card sx={{ width: "100%", height: 400 }}>
             <CardContent sx={{ height: "100%" }}>
@@ -37,8 +42,11 @@ export default function LineChartBanxico({ values }: { values?: BanxicoDato[] })
                         >
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="fecha" />
-                            <YAxis />
-                            <Tooltip />
+                            <YAxis tickFormatter={(v) => numberFormatter.format(Number(v))} />
+                            <Tooltip
+                                formatter={(value: number) => numberFormatter.format(Number(value))}
+                                labelFormatter={(label: string) => label}
+                            />
                             <Line
                                 type="monotone"
                                 dataKey="dato"

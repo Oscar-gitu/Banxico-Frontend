@@ -39,6 +39,9 @@ export default function Dashboard() {
         const [start, end] = dateRange || [] as unknown as [DateObject, DateObject];
         if (!start || !end) return;
         try {
+            setData(null);
+            setMinVal(null);
+            setMaxVal(null);
             const fetchData = async () => {
                 const res = await getSeriesData(optionsSelect[selected], start, end);
                 setData(res);
@@ -57,6 +60,7 @@ export default function Dashboard() {
         const run = async () => {
             try {
                 const now = new Date();
+                setTodayData(null);
                 const res = await getSeriesData(optionsSelect[selected], now, now);
                 setTodayData(res.bmx.series[0].datos[0].dato);
             } catch (err) {

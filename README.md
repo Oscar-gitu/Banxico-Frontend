@@ -45,6 +45,12 @@ npm run lint
 La variable de entorno `Bmx-Token` se debe agregar en el archivo `.env`.
 NOTA: Se creo una api en aws para consumir la api de banxico, ya que la api de banxico no permite consumirla desde el frontend cuando se hace el build por temas de cors, por ello se creo una api en aws para consumir la api de banxico y actua como intermediario, dicho endpoint consume la api de banxico, utiliza el token de la api de banxico para autenticar la peticion y retorna los datos en formato json.
 
+## Librerias utilizadas
+
+Material UI - Para los componentes - https://mui.com/material-ui/all-components/
+Rechartts - Para graficos - https://recharts.org/en-US/examples/SimpleLineChart
+React Multi Date Picker - Para los rangos de fechas - https://www.npmjs.com/package/react-multi-date-picker
+
 ## Vistas
 
 ### Dashboard

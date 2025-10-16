@@ -72,7 +72,7 @@ export default function Dashboard() {
                     <Typography variant="h4" className="typography">DASHBOARD</Typography>
                 </Grid>
                 <Grid container spacing={2} className="dashboard-container">
-                    <Grid size={{ xs: 12, sm: 3, md: 3 }}>
+                    <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                         <SelectComponent
                             content="Serie"
                             options={optionLabels}
@@ -82,7 +82,7 @@ export default function Dashboard() {
                             }}
                         />  
                     </Grid>
-                    <Grid size={{ xs: 12, sm: 3, md: 3 }}>
+                    <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                         <DatePickerComponent
                             value={dateRange}
                             onChange={(val) => setDateRange(val)}

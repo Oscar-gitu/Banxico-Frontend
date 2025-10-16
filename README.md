@@ -2,6 +2,9 @@
 
 Aplicación React + TypeScript + Vite con Material UI.
 
+# Aplicacion hosteada en aws Amplify
+La aplicacion se encuentra hosteada utilizando el servicio aws Amplify.
+
 ## Requisitos
 - Node.js 18+ (recomendado) y npm.
 - Clonar este repositorio, el repositorio es publico.
@@ -41,6 +44,14 @@ npm run lint
 ## Variables/Configuración
 La variable de entorno `Bmx-Token` se debe agregar en el archivo `.env`.
 NOTA: Se creo una api en aws para consumir la api de banxico, ya que la api de banxico no permite consumirla desde el frontend cuando se hace el build por temas de cors, por ello se creo una api en aws para consumir la api de banxico y actua como intermediario, dicho endpoint consume la api de banxico, utiliza el token de la api de banxico para autenticar la peticion y retorna los datos en formato json.
+
+## Vistas
+
+### Dashboard
+<img src="./src/assets/images/app.png" alt="Dashboard" width="1000" />
+
+### Responsiva
+<img src="./src/assets/images/responsive.png" alt="Vista responsiva" width="1000" />
 
 ## React Compiler
 

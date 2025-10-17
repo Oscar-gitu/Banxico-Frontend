@@ -12,14 +12,27 @@ import type { BanxicoDato } from '../../types/banxico';
 import CardSkeleton from '../skeletons/CardSkeleton';
 
 export default function LineChartBanxico({ values }: { values?: BanxicoDato[] }) {
+    const isLoading = typeof values === 'undefined';
     const list: BanxicoDato[] = Array.isArray(values) ? values : [];
     const data = list.map((item: BanxicoDato) => ({
         fecha: item.fecha,
         dato: parseFloat(item.dato)
     }));
 
-    if (!data.length) {
+    if (isLoading) {
         return <CardSkeleton withHeader lines={6} height={24} />;
+    }
+    if (!data.length) {
+        return (
+            <Box sx={{ width: '100%' }}>
+                <Typography variant="h6" sx={{ fontFamily: 'Poppins, Roboto, sans-serif', fontWeight: 600, mb: 1 }}>
+                    Valor histórico:
+                </Typography>
+                <Box sx={{ width: '100%', height: 200, border: '1px dashed #e5e7eb', borderRadius: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#6b7280', fontFamily: 'Poppins, Roboto, sans-serif' }}>
+                    Sin información
+                </Box>
+            </Box>
+        );
     }
 
     const numberFormatter = new Intl.NumberFormat('es-MX', {

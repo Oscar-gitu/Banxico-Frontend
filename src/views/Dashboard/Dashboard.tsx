@@ -33,33 +33,48 @@ export default function Dashboard() {
     useEffect(() => {
         const [start, end] = (dateRange ?? []) as [DateObject?, DateObject?];
         if (!start || !end) return;
-        try {
-            setData(null);
-            setMinVal(null);
-            setMaxVal(null);
-            const fetchData = async () => {
+        setData(null);
+        setMinVal(null);
+        setMaxVal(null);
+        const fetchData = async () => {
+            try {
                 const res = await getSeriesData(optionsSelect[selected], start, end);
-                setData(res);
                 const datos = res?.bmx?.series?.[0]?.datos ?? [];
-                const { min, max } = getMinMaxFromDatos(datos);
-                setMinVal(min);
-                setMaxVal(max);
-            };
-            fetchData();
-        } catch (error) {
-            console.error(error);
-        }
+                if (!datos.length) {
+                    setData(res);
+                    setMinVal('Sin información');
+                    setMaxVal('Sin información');
+                } else {
+                    const { min, max } = getMinMaxFromDatos(datos);
+                    setData(res);
+                    setMinVal(min);
+                    setMaxVal(max);
+                }
+            } catch (error) {
+                console.error(error);
+                setData(null);
+                setMinVal('Sin información');
+                setMaxVal('Sin información');
+            }
+        };
+        fetchData();
     }, [selected, dateRange]);
 
     useEffect(() => {
         const run = async () => {
+            const now = new Date();
+            setTodayData(null);
             try {
-                const now = new Date();
-                setTodayData(null);
                 const res = await getSeriesData(optionsSelect[selected], now, now);
-                setTodayData(res.bmx.series[0].datos[0].dato);
+                const datos = res?.bmx?.series?.[0]?.datos ?? [];
+                if (datos.length && datos[0]?.dato != null) {
+                    setTodayData(datos[0].dato);
+                } else {
+                    setTodayData('Sin información');
+                }
             } catch (err) {
                 console.error(err);
+                setTodayData('Sin información');
             }
         };
         run();
@@ -128,7 +143,7 @@ export default function Dashboard() {
                 </Grid>
                 <Grid container spacing={4}>
                     <Grid size={{ xs: 12, sm: 12, md: 12 }}>
-                        <TableComponent values={data?.bmx?.series?.[0]?.datos} />
+                        <TableComponent values={data?.bmx?.series?.[0]?.datos ?? []} />
                     </Grid>
                 </Grid>
             </Box>

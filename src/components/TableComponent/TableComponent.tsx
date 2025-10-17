@@ -30,6 +30,7 @@ export default function TableComponent({ values }: { values?: BanxicoDato[] }) {
     setPage(0);
   };
 
+  const isLoading = typeof values === 'undefined';
   const rows = Array.isArray(values) ? values : [];
 
   const parseDate = parseDateDMY;
@@ -59,6 +60,16 @@ export default function TableComponent({ values }: { values?: BanxicoDato[] }) {
       setOrder('desc');
     }
   };
+
+  if (!isLoading && rows.length === 0) {
+    return (
+      <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%', height: 200, border: '1px dashed #e5e7eb', borderRadius: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#6b7280', fontFamily: 'Poppins, Roboto, sans-serif' }}>
+          Sin información
+        </Box>
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -116,17 +127,19 @@ export default function TableComponent({ values }: { values?: BanxicoDato[] }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.length === 0
-              ? <TableRowsSkeleton rows={8} />
-              : (rowsPerPage > 0
-                  ? sorted.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  : sorted
-                ).map((row) => (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={`${row.fecha}-${row.dato}`}>
-                    <TableCell>{row.fecha}</TableCell>
-                    <TableCell>{row.dato}</TableCell>
-                  </TableRow>
-                ))}
+            {isLoading ? (
+              <TableRowsSkeleton rows={8} />
+            ) : (
+              (rowsPerPage > 0
+                ? sorted.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : sorted
+              ).map((row) => (
+                <TableRow hover role="checkbox" tabIndex={-1} key={`${row.fecha}-${row.dato}`}>
+                  <TableCell>{row.fecha}</TableCell>
+                  <TableCell>{row.dato}</TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>

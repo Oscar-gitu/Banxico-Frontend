@@ -40,6 +40,8 @@ npm run lint
 - `src/components/` contiene carpetas por componente y un `index.ts` para exportarlos.
 - `src/views/` contiene las vistas (por ejemplo `Dashboard/`).
 - `src/services/` contiene clientes/servicios HTTP (`banxicoApi.ts`).
+- `src/utils/` contiene utilidades para el manejo de datos (`seriesStats.ts`).
+- `src/types/` contiene tipos de datos (`banxico.ts`).
 
 ## Variables/Configuración
 La variable de entorno `Bmx-Token` se debe agregar en el archivo `.env`.

@@ -138,14 +138,18 @@ export default function Dashboard() {
                 </Grid>
                 <Grid container spacing={4} className="dashboard-container">
                     <Grid size={{ xs: 12, sm: 12, md: 12 }}>
-                        <SimpleLineChart values={data?.bmx?.series?.[0]?.datos ?? []} />
+                        <SimpleLineChart
+                            values={data === null ? undefined : (data?.bmx?.series?.[0]?.datos ?? [])}
+                        />
                     </Grid>
                 </Grid>
                 <Grid container spacing={4}>
                     <Grid size={{ xs: 12, sm: 12, md: 12 }}>
-                        <TableComponent values={data?.bmx?.series?.[0]?.datos ?? []} />
+                        <TableComponent
+                            values={data === null ? undefined : (data?.bmx?.series?.[0]?.datos ?? [])}
+                        />
                     </Grid>
-                </Grid>
+                </Grid> 
             </Box>
             <Footer />
         </Box>

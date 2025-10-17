@@ -35,7 +35,7 @@ export async function getSeriesData<T = BanxicoResponse>(
   const start = toYmd(startDate);
   const end = toYmd(endDate);
   const url = `${BASE_URL}`;
-  // Bmx-Token header se añade automáticamente en apiClient
+
   const res = await apiClient.get<T>(url, { serieId: ids, start, end });
   return res.data;
 }

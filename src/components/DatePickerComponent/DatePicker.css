@@ -1,5 +1,6 @@
 .mui-date-picker {
   width: 100%;
+  margin-top: 0;
 }
 
 .mui-date-picker .mui-input {

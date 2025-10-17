@@ -5,10 +5,10 @@ import Select from '@mui/material/Select';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 interface SelectComponentProps {
-    content: string;
-    options: string[];
-    value: string;
-    onChange: (value: string) => void;
+  content: string;
+  options: string[];
+  value: string;
+  onChange: (value: string) => void;
 }
 
 export default function SelectComponent({ content, options, value, onChange }: SelectComponentProps) {

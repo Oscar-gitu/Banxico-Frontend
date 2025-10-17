@@ -31,7 +31,7 @@ export default function Dashboard() {
     const [maxVal, setMaxVal] = useState<string | null>(null);
 
     useEffect(() => {
-        const [start, end] = dateRange || [] as unknown as [DateObject, DateObject];
+        const [start, end] = (dateRange ?? []) as [DateObject?, DateObject?];
         if (!start || !end) return;
         try {
             setData(null);
@@ -80,7 +80,7 @@ export default function Dashboard() {
                             onChange={(label) => {
                                 setSelected(label);
                             }}
-                        />  
+                        />
                     </Grid>
                     <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                         <DatePickerComponent
@@ -92,7 +92,6 @@ export default function Dashboard() {
                 <Grid container spacing={4} className="dashboard-container">
                     <Grid size={{ xs: 12, sm: 4, md: 4 }}>
                         <Card
-                            variant="metric"
                             tone="primary"
                             icon={<TrendingFlatIcon />}
                             title={'Valor actual: ' + selected}
@@ -103,7 +102,6 @@ export default function Dashboard() {
                     </Grid>
                     <Grid size={{ xs: 12, sm: 4, md: 4 }}>
                         <Card
-                            variant="metric"
                             tone="success"
                             icon={<TrendingUpIcon />}
                             title="Valor máximo"
@@ -114,7 +112,6 @@ export default function Dashboard() {
                     </Grid>
                     <Grid size={{ xs: 12, sm: 4, md: 4 }}>
                         <Card
-                            variant="metric"
                             tone="warning"
                             icon={<TrendingDownIcon />}
                             title="Valor mínimo"
@@ -133,7 +130,7 @@ export default function Dashboard() {
                     <Grid size={{ xs: 12, sm: 12, md: 12 }}>
                         <TableComponent values={data?.bmx?.series?.[0]?.datos} />
                     </Grid>
-                </Grid> 
+                </Grid>
             </Box>
             <Footer />
         </Box>

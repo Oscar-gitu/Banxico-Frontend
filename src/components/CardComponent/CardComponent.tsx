@@ -1,5 +1,4 @@
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
@@ -13,7 +12,6 @@ export default function CardComponent({
     title,
     content,
     titleTooltip,
-    variant,
     icon,
     helperText,
     tone
@@ -21,7 +19,6 @@ export default function CardComponent({
     title: string,
     content: string,
     titleTooltip?: string,
-    variant?: 'default' | 'metric',
     icon?: React.ReactNode,
     helperText?: string,
     tone?: Tone
@@ -29,15 +26,23 @@ export default function CardComponent({
     if (content == null || content.trim() === '') {
         return <CardSkeleton withHeader lines={1} height={28} />
     }
-    if (variant === 'metric') {
-        const toneClass = tone ? `card-metric--${tone}` : 'card-metric--primary';
-        return (
-            <div className={`card-metric ${toneClass}`}>
-                {icon ? (
-                    <div className="card-metric__icon">{icon}</div>
-                ) : null}
-                <div className="card-metric__content">
-                    <div className="card-metric__title">
+
+    const toneClass = tone ? `card-metric--${tone}` : 'card-metric--primary';
+    return (
+        <Card
+            className={`card-metric ${toneClass}`}
+            elevation={0}
+            sx={{
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: '0 1px 2px rgba(16,24,40,0.15)'
+            }}
+        >
+            <CardHeader
+                sx={{ alignItems: 'center', '& .MuiCardHeader-subheader': { marginTop: 0 } }}
+                avatar={icon ? <span className="card-metric__icon">{icon}</span> : undefined}
+                title={
+                    <span className="card-metric__title">
                         {titleTooltip ? (
                             <Tooltip title={titleTooltip} arrow>
                                 <span>{title}</span>
@@ -45,36 +50,19 @@ export default function CardComponent({
                         ) : (
                             <span>{title}</span>
                         )}
-                    </div>
-                    <div className="card-metric__value">{content}</div>
-                    {helperText ? (
-                        <div className="card-metric__helper">{helperText}</div>
-                    ) : null}
-                </div>
-            </div>
-        );
-    }
-    return (
-        <>
-            <Card className="card-root">
-                <CardHeader
-                    slotProps={{ title: { className: 'card-title' } }}
-                    title={
-                        titleTooltip ? (
-                            <Tooltip title={titleTooltip} arrow>
-                                <span>{title}</span>
-                            </Tooltip>
-                        ) : (
-                            title
-                        )
-                    }
-                />
-                <CardContent>
-                    <Typography variant="h5" className="card-value">
-                        {content}
-                    </Typography>
-                </CardContent>
-            </Card>
-        </>
-    )
+                    </span>
+                }
+                subheader={
+                    <span className="card-metric__content">
+                        <Typography variant="h5" className="card-metric__value" sx={{ fontWeight: 700, fontFamily: 'Poppins, Roboto, sans-serif' }}>
+                            {content}
+                        </Typography>
+                        {helperText ? (
+                            <Typography variant="body2" className="card-metric__helper">{helperText}</Typography>
+                        ) : null}
+                    </span>
+                }
+            />
+        </Card>
+    );
 }
